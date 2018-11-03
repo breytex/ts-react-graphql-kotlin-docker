@@ -1,0 +1,8 @@
+node_modules
+package-lock.json
+data/log/access.log
+data/log/error.log
+data/log/nginx_access.log
+data/log/nginx_error.log
+data/mongo
+!data/mongo/.gitkeep
