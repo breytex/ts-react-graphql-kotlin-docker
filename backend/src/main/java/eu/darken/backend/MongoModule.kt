@@ -10,7 +10,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-object MongoModule {
+class MongoModule {
     private val log = logger(MongoModule::class)
 
     @Provides

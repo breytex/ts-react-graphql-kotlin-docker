@@ -2,7 +2,6 @@ package eu.darken.backend
 
 import eu.darken.backend.common.exts.logger
 import eu.darken.backend.webserver.HttpVerticle
-import eu.darken.backend.webserver.HttpVerticleModule
 import io.vertx.core.DeploymentOptions
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.LoggerFactory
@@ -28,15 +27,7 @@ class Application @Inject constructor(private val vertx: Vertx, @Named("ENV") pr
         @JvmStatic
         fun main(args: Array<String>) {
             System.setProperty(LoggerFactory.LOGGER_DELEGATE_FACTORY_CLASS_NAME, SLF4JLogDelegateFactory::class.java.name)
-            DaggerAppComponent.builder()
-                    .vertxModule(VertxModule)
-                    .mongoModule(MongoModule)
-                    .appModule(AppModule)
-                    .httpVerticleModule(HttpVerticleModule)
-                    .daggerVerticleFactoryModule(DaggerVerticleFactoryModule)
-                    .build()
-                    .application()
-                    .launch()
+            DaggerAppComponent.builder().build().application().launch()
         }
     }
 }

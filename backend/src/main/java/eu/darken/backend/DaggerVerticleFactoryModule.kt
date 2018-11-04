@@ -8,7 +8,7 @@ import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module
-object DaggerVerticleFactoryModule {
+class DaggerVerticleFactoryModule {
 
     /**
      * Provides a single instance of the Daggerized [VerticleFactory].

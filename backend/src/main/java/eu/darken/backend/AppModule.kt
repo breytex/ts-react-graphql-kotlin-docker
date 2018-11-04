@@ -12,7 +12,7 @@ import io.vertx.core.json.Json
 
 
 @Module
-object AppModule {
+class AppModule {
     private val log = logger(AppModule::class)
 
     init {

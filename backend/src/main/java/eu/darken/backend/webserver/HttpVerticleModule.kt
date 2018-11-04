@@ -7,7 +7,7 @@ import dagger.multibindings.StringKey
 import io.vertx.core.Verticle
 
 @Module
-object HttpVerticleModule {
+class HttpVerticleModule {
 
     @Provides
     @IntoMap

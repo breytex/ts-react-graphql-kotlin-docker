@@ -16,7 +16,7 @@ import javax.inject.Singleton
 
 
 @Module
-object VertxModule {
+class VertxModule {
     private val log = logger(VertxModule::class)
 
     @Provides
