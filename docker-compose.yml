@@ -33,6 +33,10 @@ services:
      - MONGO_USERNAME=graphql
      - MONGO_PASSWORD=yoga123
      - MONGO_DATABASE=graphqldb
+     - HTTP_PORT=4000
+    # - HTTPS_PORT=4022
+    # - HTTPS_KEY=""
+    # - HTTPS_CRT=""
     ports:
       - "4000:4000"
     #  - "5005:5005" # development
