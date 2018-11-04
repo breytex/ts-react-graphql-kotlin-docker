@@ -24,16 +24,15 @@ class GraphQLModule {
     @Singleton
     fun provideSchema(customGens: CustomSchemaGeneratorHooks,
                       queries: Set<@JvmSuppressWildcards GraphQLQuery>,
-                      mutations: Set<@JvmSuppressWildcards GraphQLMutation>): GraphQLSchema {
+                      mutations: Set<@JvmSuppressWildcards GraphQLMutation>,
+                      dataFetcherFactory: CustomDataFetcherFactory): GraphQLSchema {
         val schemaConfig = SchemaGeneratorConfig(
                 supportedPackages = listOf("eu.darken.backend.webserver.graphql"),
-                hooks = customGens
+                hooks = customGens,
+                dataFetcherFactory = dataFetcherFactory
         )
 
-        val schema = toSchema(
-                queries.toTopLevelObjectDefs(),
-                mutations.toTopLevelObjectDefs(),
-                schemaConfig)
+        val schema = toSchema(queries.toTopLevelObjectDefs(), mutations.toTopLevelObjectDefs(), schemaConfig)
 
         log.debug("Loaded GraphQL Schema:\n${SchemaPrinter().print(schema)}")
         return schema

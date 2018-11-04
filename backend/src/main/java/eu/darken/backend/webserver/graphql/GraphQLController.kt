@@ -22,7 +22,6 @@ class GraphQLController @Inject constructor(
     router.route().handler(BodyHandler.create())
     router.route().handler { event ->
         val jsonBody = event.bodyAsJson
-        log.debug("RequestBody: $jsonBody")
         val query = jsonBody.getString("query")
         log.debug("Query: $query")
 
