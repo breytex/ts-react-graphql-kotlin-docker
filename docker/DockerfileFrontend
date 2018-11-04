@@ -24,8 +24,6 @@ ARG BUILDENV
 
 EXPOSE 3000
 
-#RUN npm i -g npx
-
 ADD ./frontend /src/
 
 WORKDIR /src

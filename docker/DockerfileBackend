@@ -1,4 +1,4 @@
-FROM node:11-alpine as build
+FROM openjdk:8-jdk-alpine     
 
 #
 # Handle the env info
@@ -24,10 +24,8 @@ ARG BUILDENV
 
 EXPOSE 4000
 
-#RUN npm i -g npx
-
 ADD ./backend /src/
 
 WORKDIR /src
 
-RUN npm i
+RUN ./gradlew clean assemble

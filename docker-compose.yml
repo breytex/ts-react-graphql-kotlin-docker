@@ -12,6 +12,8 @@ services:
       - NODE_ENV=development
     volumes:
       - ./frontend:/src
+      # Don't overwrite node_modules from the build step
+      - /src/node_modules
     ports:
       - "3000:3000"
     links:
@@ -23,14 +25,17 @@ services:
     build:
       context: .
       dockerfile: docker/DockerfileBackend
-    command: npm run dev
+    command: ./gradlew vertxRun
+    #command: ./gradlew vertxDebug # development
     environment:
-     - NODE_ENV=development
+     - VERTX_DEBUG=true
+     - MONGO_URI=mongodb://localhost:27017
      - MONGO_USERNAME=graphql
      - MONGO_PASSWORD=yoga123
-     - MONGO_DATABASE=graphqlYoga
+     - MONGO_DATABASE=graphqldb
     ports:
       - "4000:4000"
+    #  - "5005:5005" # development
     volumes:
       - ./backend:/src
       - ./data/log:/var/log:rw
@@ -65,6 +70,6 @@ services:
     environment:
       MONGODB_USERNAME: graphql
       MONGODB_PASSWORD: yoga123
-      MONGODB_DATABASE: graphqlYoga
+      MONGODB_DATABASE: graphqldb
     volumes:
       - './data/mongo:/data/db'
