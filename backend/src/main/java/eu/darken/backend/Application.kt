@@ -11,13 +11,13 @@ import javax.inject.Inject
 import javax.inject.Named
 
 
-class Application @Inject constructor(private val vertx: Vertx, @Named("ENV") private val config: JsonObject) {
+class Application @Inject constructor(private val vertx: Vertx, @Named("config") private val config: JsonObject) {
     val log = logger(Application::class)
     fun launch() {
         Application.isDebug = config.getString("VERTX_DEBUG", "true")!!.toBoolean()
         log.info("Debug: ${Application.isDebug}")
         vertx.deployVerticle("dagger:${HttpVerticle::class.java.name}", DeploymentOptions().apply {
-            this.config = config
+            this.config = this@Application.config
         })
     }
 

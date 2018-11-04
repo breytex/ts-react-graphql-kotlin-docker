@@ -3,7 +3,6 @@ package eu.darken.backend
 import dagger.Module
 import dagger.Provides
 import eu.darken.backend.common.exts.logger
-import io.reactivex.Single
 import io.vertx.config.ConfigStoreOptions
 import io.vertx.core.json.JsonObject
 import io.vertx.core.spi.VerticleFactory
@@ -46,20 +45,12 @@ class VertxModule {
 
     @Provides
     @Singleton
-    @Named("ENV")
+    @Named("config")
     fun environmentConfig(vertx: Vertx): JsonObject {
         val envStore = ConfigStoreOptions().setType("env").setConfig(JsonObject().put("raw-data", true))
         val options = ConfigRetrieverOptions().addStore(envStore)
         val retriever = ConfigRetriever.create(vertx, options)
-        return Single
-                .create<JsonObject> {
-                    retriever.getConfig { event ->
-                        when {
-                            event.failed() -> it.onError(event.cause())
-                            else -> it.onSuccess(event.result())
-                        }
-                    }
-                }
+        return retriever.rxGetConfig()
                 .doOnSuccess { log.info("Config: $it") }
                 .blockingGet()
     }

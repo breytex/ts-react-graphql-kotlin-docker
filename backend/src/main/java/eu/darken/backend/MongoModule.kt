@@ -15,7 +15,7 @@ class MongoModule {
 
     @Provides
     @Singleton
-    fun provideMongoClient(vertx: Vertx, @Named("ENV") config: JsonObject): MongoClient {
+    fun provideMongoClient(vertx: Vertx, @Named("config") config: JsonObject): MongoClient {
         val mongoconfig = JsonObject(mapOf(
                 "connection_string" to config.getString("MONGO_URI"),
                 "db_name" to config.getString("MONGO_DATABASE"),
