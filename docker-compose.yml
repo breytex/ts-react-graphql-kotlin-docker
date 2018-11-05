@@ -29,12 +29,12 @@ services:
     #command: ./gradlew vertxDebug # development
     environment:
      - VERTX_DEBUG=true
-     - MONGO_URI=mongodb://localhost:27017
+     - MONGO_URI=mongodb://mongo:27017
      - MONGO_USERNAME=graphql
      - MONGO_PASSWORD=yoga123
      - MONGO_DATABASE=graphqldb
      - HTTP_PORT=4000
-    # - HTTPS_PORT=4022
+    # - HTTPS_PORT=4022 
     # - HTTPS_KEY=""
     # - HTTPS_CRT=""
     ports:
