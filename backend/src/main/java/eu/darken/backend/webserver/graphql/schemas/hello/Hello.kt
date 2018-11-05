@@ -1,30 +1,41 @@
 package eu.darken.backend.webserver.graphql.schemas.hello
 
 import com.expedia.graphql.annotations.GraphQLDescription
-import eu.darken.backend.AppModule
-import eu.darken.backend.common.exts.logger
+import com.squareup.moshi.Moshi
 import eu.darken.backend.webserver.graphql.schemas.GraphQLMutation
 import eu.darken.backend.webserver.graphql.schemas.GraphQLQuery
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
+import io.reactivex.schedulers.Schedulers
+import io.vertx.core.json.JsonObject
+import io.vertx.reactivex.ext.mongo.MongoClient
 import java.time.Instant
 import java.util.*
 import javax.inject.Inject
 
-data class Hello(val name: String) {
-    val id = UUID.randomUUID()
+@Suppress("unused")
+data class Hello(val name: String, val helloId: UUID) {
+    companion object {
+        const val COLLECTION = "hellos"
+    }
+
+    @property:GraphQLDescription("This value will be lazily fetched, only when requested.")
+    @Transient
     lateinit var helloDetails: HelloDetails
 }
 
-data class HelloDetails(val id: UUID) {
-    val createdAt = Instant.now()
+@Suppress("unused")
+data class HelloDetails(val helloId: UUID) {
+    companion object {
+        const val COLLECTION = "hellodetails"
+    }
+
+    var createdAt: Instant = Instant.now()
 }
 
-class HelloQuery @Inject constructor() : GraphQLQuery {
-    companion object {
-        val hellos = mutableListOf<Hello>()
-        val helloDetails = mutableListOf<HelloDetails>()
-    }
+@Suppress("unused")
+class HelloQuery @Inject constructor(private val mongo: MongoClient, moshi: Moshi) : GraphQLQuery {
+    private val adapter = moshi.adapter(Hello::class.java)
 
     @GraphQLDescription("A friendly hello")
     fun hello(): String {
@@ -33,29 +44,45 @@ class HelloQuery @Inject constructor() : GraphQLQuery {
 
     @GraphQLDescription("A query that returns all hellos")
     fun allHellos(): List<Hello> {
-        return hellos
+        return mongo.rxFind(Hello.COLLECTION, JsonObject())
+                .subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
+                .flattenAsObservable { it }
+                .map { adapter.fromJson(it.toString())!! }
+                .toList()
+                .blockingGet()
     }
 }
 
-class HelloMutation @Inject constructor() : GraphQLMutation {
+@Suppress("unused")
+class HelloMutation @Inject constructor(private val mongo: MongoClient, moshi: Moshi) : GraphQLMutation {
+
+    private val adapter = moshi.adapter(Hello::class.java)
+    private val adapterDetails = moshi.adapter(HelloDetails::class.java)
+
     @GraphQLDescription("A mutation that saves a hello")
     fun saveHello(value: String): Hello {
-        val hello = Hello(value)
-        HelloQuery.hellos.add(hello)
-        HelloQuery.helloDetails.add(HelloDetails(hello.id))
-        return hello
+
+        val hello = Hello(value, UUID.randomUUID())
+        hello.helloDetails = HelloDetails(hello.helloId)
+        return mongo.rxSave(Hello.COLLECTION, JsonObject(adapter.toJson(hello)))
+                .subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
+                .flatMap { mongo.rxSave(HelloDetails.COLLECTION, JsonObject(adapterDetails.toJson(hello.helloDetails))) }
+                .map { hello }
+                .blockingGet()
     }
 }
 
-class HelloDetailsDataFetcher @Inject constructor() : DataFetcher<Any> {
+// This will only be used if the client requests the `helloDetails` field
+class HelloDetailsDataFetcher @Inject constructor(private val mongo: MongoClient, moshi: Moshi) : DataFetcher<Any> {
+    private val adapter = moshi.adapter(HelloDetails::class.java)
 
-    private val log = logger(AppModule::class)
     override fun get(environment: DataFetchingEnvironment?): Any {
-        log.debug("Environment: $environment")
         val sourceHello = environment?.getSource<Hello>()
-        HelloQuery.helloDetails.forEach {
-            if (it.id == sourceHello?.id) return HelloDetails(UUID.randomUUID())
-        }
-        throw Exception()
+        val json = JsonObject().put("helloId", sourceHello?.helloId.toString())
+
+        return mongo.rxFindOne(HelloDetails.COLLECTION, json, null)
+                .subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
+                .map { adapter.fromJsonValue(it.map)!! }
+                .blockingGet()
     }
 }

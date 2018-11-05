@@ -2,20 +2,26 @@ package eu.darken.backend.webserver.graphql
 
 import com.expedia.graphql.schema.extensions.deepName
 import eu.darken.backend.common.exts.logger
-import eu.darken.backend.webserver.graphql.schemas.hello.HelloDetailsDataFetcher
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetcherFactory
 import graphql.schema.DataFetcherFactoryEnvironment
 import javax.inject.Inject
 
-class CustomDataFetcherFactory @Inject constructor() : DataFetcherFactory<Any> {
+class CustomDataFetcherFactory @Inject constructor(fetchers: Map<Class<*>, @JvmSuppressWildcards DataFetcher<Any>>) : DataFetcherFactory<Any> {
+    private val fetchersByName = mutableMapOf<String, DataFetcher<Any>>()
+
+    init {
+        fetchers.forEach {
+            fetchersByName[it.key.simpleName] = it.value
+        }
+    }
+
     val log = logger(this::class)
 
     override fun get(environment: DataFetcherFactoryEnvironment?): DataFetcher<Any> {
         //Strip out possible `Input` and `!` suffixes added to by the SchemaGenerator
         val targetedTypeName = environment?.fieldDefinition?.type?.deepName?.removeSuffix("!")?.removeSuffix("Input")
-        log.info("TargetedType: $targetedTypeName")
-        return HelloDetailsDataFetcher()
+        return fetchersByName[targetedTypeName]!!
     }
 
 }
