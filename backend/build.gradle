@@ -3,7 +3,7 @@ buildscript {
         kotlin_version = '1.2.71'
         vertx_version = '3.5.3'
         daggerVersion = '2.16'
-        jacksonVersion = '2.9.7'
+        moshi_version = '1.7.0'
     }
 
     repositories {
@@ -62,10 +62,9 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
 
-    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
-    compile "com.fasterxml.jackson.module:jackson-module-parameter-names:$jacksonVersion"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:$jacksonVersion"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
+    implementation "com.squareup.moshi:moshi:$moshi_version"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
 
     compile 'com.lmax:disruptor:3.3.5'
     compile 'org.apache.logging.log4j:log4j-core:2.7'
