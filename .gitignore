@@ -6,3 +6,4 @@ data/log/nginx_access.log
 data/log/nginx_error.log
 data/mongo
 !data/mongo/.gitkeep
+.gradle/
