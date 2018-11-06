@@ -43,7 +43,7 @@ class HttpVerticle constructor(val httpController: HttpController) : AbstractVer
         }
 
         val baseOptions = HttpServerOptions()
-                .setIdleTimeout(15)
+                .setIdleTimeout(60)
 
         vertx.createHttpServer(baseOptions)
                 .requestHandler(redirectRouter::accept)
