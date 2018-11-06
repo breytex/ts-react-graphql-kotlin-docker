@@ -1,4 +1,4 @@
-package eu.darken.backend.common
+package eu.darken.backend.common.graphql
 
 import dagger.MapKey
 import kotlin.reflect.KClass
@@ -6,4 +6,4 @@ import kotlin.reflect.KClass
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
 @MapKey
-annotation class FetcherKey(val value: KClass<*>)
+annotation class FieldKey(val value: KClass<*>)

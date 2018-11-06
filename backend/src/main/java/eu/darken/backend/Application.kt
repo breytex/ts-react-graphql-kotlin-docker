@@ -7,6 +7,8 @@ import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.LoggerFactory
 import io.vertx.core.logging.SLF4JLogDelegateFactory
 import io.vertx.reactivex.core.Vertx
+import org.apache.logging.log4j.Level
+import org.apache.logging.log4j.core.config.Configurator
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -15,7 +17,17 @@ class Application @Inject constructor(private val vertx: Vertx, @Named("config")
     val log = logger(Application::class)
     fun launch() {
         Application.isDebug = config.getString("VERTX_DEBUG", "true")!!.toBoolean()
-        log.info("Debug: ${Application.isDebug}")
+
+        log.warn("Debug: ${Application.isDebug}")
+
+        if (Application.isDebug) {
+            Configurator.setRootLevel(Level.DEBUG)
+            Configurator.setLevel("eu.darken.backend", Level.DEBUG)
+        } else {
+            Configurator.setRootLevel(Level.WARN)
+            Configurator.setLevel("eu.darken.backend", Level.WARN)
+        }
+
         vertx.deployVerticle("dagger:${HttpVerticle::class.java.name}", DeploymentOptions().apply {
             this.config = this@Application.config
         })

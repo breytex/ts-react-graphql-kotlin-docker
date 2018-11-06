@@ -13,6 +13,9 @@ import eu.darken.backend.webserver.graphql.schemas.GraphQLQuery
 import graphql.GraphQL
 import graphql.schema.GraphQLSchema
 import graphql.schema.idl.SchemaPrinter
+import org.dataloader.BatchLoader
+import org.dataloader.DataLoader
+import org.dataloader.DataLoaderRegistry
 import javax.inject.Singleton
 
 
@@ -41,6 +44,15 @@ class GraphQLModule {
     @Provides
     @Singleton
     fun provideGraphQL(schema: GraphQLSchema): GraphQL {
-        return GraphQL.newGraphQL(schema).build()
+        return GraphQL
+                .newGraphQL(schema)
+                .build()
+    }
+
+    @Provides
+    fun provideDataloaderRegistry(loaders: @JvmSuppressWildcards Map<Class<*>, BatchLoader<*, *>>): DataLoaderRegistry {
+        val registry = DataLoaderRegistry()
+        loaders.forEach { registry.register(it.key.simpleName, DataLoader.newDataLoader(it.value)) }
+        return registry
     }
 }

@@ -14,12 +14,12 @@
 
     <!-- Logger levels: trace, debug, info, warn, error, fatal -->
     <Loggers>
-        <AsyncLogger name="eu.darken.backend" level="DEBUG" additivity="false" includeLocation="true">
+        <AsyncLogger name="eu.darken.backend" level="debug" additivity="false" includeLocation="true">
             <AppenderRef ref="Console"/>
         </AsyncLogger>
 
-        <Root level="debug">
+        <AsyncRoot level="info">
             <AppenderRef ref="Console"/>
-        </Root>
+        </AsyncRoot>
     </Loggers>
 </Configuration>
