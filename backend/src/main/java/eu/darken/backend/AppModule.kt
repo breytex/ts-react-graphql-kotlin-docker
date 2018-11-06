@@ -7,6 +7,7 @@ import dagger.Provides
 import eu.darken.backend.common.exts.logger
 import eu.darken.backend.common.moshi.InstantAdapter
 import eu.darken.backend.common.moshi.UUIDAdapter
+import javax.inject.Singleton
 
 
 @Module
@@ -18,6 +19,7 @@ class AppModule {
     }
 
     @Provides
+    @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder()
                 .add(UUIDAdapter())

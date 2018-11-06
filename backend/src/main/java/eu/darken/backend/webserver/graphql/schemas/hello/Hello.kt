@@ -6,11 +6,11 @@ import eu.darken.backend.webserver.graphql.schemas.GraphQLMutation
 import eu.darken.backend.webserver.graphql.schemas.GraphQLQuery
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
-import io.reactivex.schedulers.Schedulers
 import io.vertx.core.json.JsonObject
 import io.vertx.reactivex.ext.mongo.MongoClient
 import java.time.Instant
 import java.util.*
+import java.util.concurrent.CompletableFuture
 import javax.inject.Inject
 
 @Suppress("unused")
@@ -45,7 +45,6 @@ class HelloQuery @Inject constructor(private val mongo: MongoClient, moshi: Mosh
     @GraphQLDescription("A query that returns all hellos")
     fun allHellos(): List<Hello> {
         return mongo.rxFind(Hello.COLLECTION, JsonObject())
-                .subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
                 .flattenAsObservable { it }
                 .map { adapter.fromJson(it.toString())!! }
                 .toList()
@@ -65,7 +64,6 @@ class HelloMutation @Inject constructor(private val mongo: MongoClient, moshi: M
         val hello = Hello(value, UUID.randomUUID())
         hello.helloDetails = HelloDetails(hello.helloId)
         return mongo.rxSave(Hello.COLLECTION, JsonObject(adapter.toJson(hello)))
-                .subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
                 .flatMap { mongo.rxSave(HelloDetails.COLLECTION, JsonObject(adapterDetails.toJson(hello.helloDetails))) }
                 .map { hello }
                 .blockingGet()
@@ -79,10 +77,10 @@ class HelloDetailsDataFetcher @Inject constructor(private val mongo: MongoClient
     override fun get(environment: DataFetchingEnvironment?): Any {
         val sourceHello = environment?.getSource<Hello>()
         val json = JsonObject().put("helloId", sourceHello?.helloId.toString())
-
-        return mongo.rxFindOne(HelloDetails.COLLECTION, json, null)
-                .subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
+        val future = CompletableFuture<HelloDetails>()
+        mongo.rxFindOne(HelloDetails.COLLECTION, json, null)
                 .map { adapter.fromJsonValue(it.map)!! }
-                .blockingGet()
+                .subscribe({ it -> future.complete(it) }, { err -> future.completeExceptionally(err) })
+        return future
     }
 }

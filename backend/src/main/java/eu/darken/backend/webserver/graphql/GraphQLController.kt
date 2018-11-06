@@ -2,8 +2,8 @@ package eu.darken.backend.webserver.graphql
 
 import eu.darken.backend.common.Controller
 import eu.darken.backend.common.exts.json
-import eu.darken.backend.common.exts.logger
 import graphql.ExecutionInput.newExecutionInput
+import graphql.ExecutionResult
 import graphql.GraphQL
 import io.vertx.reactivex.core.Vertx
 import io.vertx.reactivex.ext.web.Router
@@ -17,17 +17,15 @@ class GraphQLController @Inject constructor(
         graphQL: GraphQL
 ) : Controller({
 
-    val log = logger(this::class)
-
     router.route().handler(BodyHandler.create())
     router.route().handler { event ->
-        val jsonBody = event.bodyAsJson
-        val query = jsonBody.getString("query")
-        log.debug("Query: $query")
-
-        val executionInput = newExecutionInput().query(query)
-
-        val specification = graphQL.execute(executionInput.build()).toSpecification()
-        event.json(specification)
+        vertx
+                .rxExecuteBlocking<ExecutionResult>({
+                    val cmd = newExecutionInput().query(event.bodyAsJson.map["query"] as String)
+                    val result = graphQL.execute(cmd)
+                    it.complete(result)
+                }, false)
+                .map { it.toSpecification() }
+                .subscribe({ event.json(it) }, { event.fail(500) })
     }
 })
