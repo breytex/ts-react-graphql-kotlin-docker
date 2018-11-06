@@ -1,7 +1,7 @@
 buildscript {
     ext {
         kotlin_version = '1.2.71'
-        vertx_version = '3.5.3'
+        vertx_version = '3.5.4'
         daggerVersion = '2.16'
         moshi_version = '1.7.0'
     }
