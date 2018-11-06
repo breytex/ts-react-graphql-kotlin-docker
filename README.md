@@ -12,13 +12,6 @@ This is a sample dev stack for getting into React + GraphQL with a Kotlin backen
 You can start building your first react-graphql-app in <5min.
 
 ## Install
-
-Put 
-```
-127.0.0.1 localdev.net
-```
-into your `/etc/hosts` (or windows equivalent)
-
 Run in your cli:
 
 ```bash
@@ -33,7 +26,7 @@ $ npm install
 
 # ... same for backend
 $ cd ../backend
-$ //TODO
+$ ./gradlew clean assemble
 
 # seed testdata into mongodb
 # fails sometimes (couldnt connect to mongo). Just retry
@@ -44,19 +37,17 @@ $ cd ../
 $ docker-compose up
 ```
 
-Open [localdev.net](localdev.net) in your browser :)
+Open [localhost](localhost) in your browser :)
 
 ## Random tips
 
-* work on the mongodb schema at //TODO
 * use the mongod cli or a gui (like `brew cask install robo-3t`) to dive into the database
-    * username: graphql
-    * password: yoga123
-    * password: graphqldb
-    * localhost:27017
-    * can be changed in docker-compose.yml
-    * work on the graphQL schema at //TODO
-    * go to http://localdev.net/api/playground //TODO to try out stuff with your graphql api
+* username: graphql
+* password: yoga123
+* password: graphqldb
+* localhost:27017
+* can be changed in docker-compose.yml
+* work on the graphQL/mongodb schema at `backend/src/main/java/eu/darken/backend/webserver/graphql/schemas/hello`
 
 ## Todos
 
