@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'io.vertx.vertx-plugin' version '0.1.0'
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+    compile "org.jetbrains.kotlin:kotlin-runtime:$versions.kotlin"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
+
+    compile 'com.expedia.www:graphql-kotlin:0.0.21'
+    compile 'com.graphql-java:graphql-java:2018-11-03T12-19-57-9a2d4e9'
+
+    compile "io.vertx:vertx-lang-kotlin:$versions.vertx"
+    compile "io.vertx:vertx-lang-kotlin-coroutines:$versions.vertx"
+
+    compile "io.vertx:vertx-core:$versions.vertx"
+    compile "io.vertx:vertx-web:$versions.vertx"
+    compile "io.vertx:vertx-web-client:$versions.vertx"
+    compile "io.vertx:vertx-rx-java2:$versions.vertx"
+    compile "io.vertx:vertx-unit:$versions.vertx"
+    compile "io.vertx:vertx-config:$versions.vertx"
+    compile "io.vertx:vertx-service-factory:$versions.vertx"
+    compile "io.vertx:vertx-service-proxy:$versions.vertx"
+    compile "io.vertx:vertx-codegen:$versions.vertx"
+    compile "io.vertx:vertx-mongo-client:$versions.vertx"
+    compile 'junit:junit:4.12'
+
+    compile "com.google.dagger:dagger:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    kaptTest "com.google.dagger:dagger-compiler:$versions.dagger"
+
+    implementation "com.squareup.moshi:moshi:$versions.moshi"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$versions.moshi"
+
+    compile 'com.lmax:disruptor:3.3.5'
+    compile 'org.apache.logging.log4j:log4j-core:2.7'
+    compile 'org.apache.logging.log4j:log4j-jcl:2.7'
+    compile 'org.apache.logging.log4j:log4j-jul:2.7'
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.7'
+
+}
+
+vertx {
+    launcher = 'eu.darken.backend.Application'
+}

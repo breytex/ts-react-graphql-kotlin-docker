@@ -1,0 +1,29 @@
+dependencies {
+    compile project(':core')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+    compile "org.jetbrains.kotlin:kotlin-runtime:$versions.kotlin"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
+
+    compile "io.vertx:vertx-lang-kotlin:$versions.vertx"
+
+    compile "io.vertx:vertx-core:$versions.vertx"
+    compile "io.vertx:vertx-rx-java2:$versions.vertx"
+    compile "io.vertx:vertx-config:$versions.vertx"
+    compile "io.vertx:vertx-mongo-client:$versions.vertx"
+
+    compile "com.google.dagger:dagger:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    kaptTest "com.google.dagger:dagger-compiler:$versions.dagger"
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+
+    implementation "com.squareup.moshi:moshi:$versions.moshi"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$versions.moshi"
+}
+
+task runSeeder(type: JavaExec) {
+    main = 'scripts.Seeder'
+    classpath = sourceSets.main.runtimeClasspath
+}

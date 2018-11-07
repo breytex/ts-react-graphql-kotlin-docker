@@ -19,5 +19,5 @@ class DaggerVerticleFactoryModule {
     @JvmSuppressWildcards
     @Provides
     @Singleton
-    fun provideVerticleFactory(verticleMap: Map<String, Provider<Verticle>>): VerticleFactory = DaggerVerticleFactory(verticleMap)
+    fun provideVerticleFactory(verticleMap: Map<Class<*>, Provider<Verticle>>): VerticleFactory = DaggerVerticleFactory(verticleMap)
 }

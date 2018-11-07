@@ -4,7 +4,7 @@ import com.expedia.graphql.schema.SchemaGeneratorConfig
 import com.expedia.graphql.toSchema
 import dagger.Module
 import dagger.Provides
-import eu.darken.backend.AppModule
+import eu.darken.backend.MoshiModule
 import eu.darken.backend.common.exts.logger
 import eu.darken.backend.common.exts.toTopLevelObjectDefs
 import eu.darken.backend.webserver.graphql.extensions.CustomSchemaGeneratorHooks
@@ -21,7 +21,7 @@ import javax.inject.Singleton
 
 @Module
 class GraphQLModule {
-    private val log = logger(AppModule::class)
+    private val log = logger(MoshiModule::class)
 
     @Provides
     @Singleton

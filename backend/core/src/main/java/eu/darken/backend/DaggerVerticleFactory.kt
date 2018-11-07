@@ -11,7 +11,7 @@ import javax.inject.Provider
  *
  * @param verticleMap Map of [Provider]'s they are provided itself by several Dagger modules.
  */
-class DaggerVerticleFactory(private val verticleMap: Map<String, Provider<Verticle>>) : VerticleFactory {
+class DaggerVerticleFactory(private val verticleMap: Map<Class<*>, Provider<Verticle>>) : VerticleFactory {
     private var log = logger(DaggerVerticleFactory::class)
 
     override fun createVerticle(verticleName: String, classLoader: ClassLoader): Verticle {
@@ -22,7 +22,9 @@ class DaggerVerticleFactory(private val verticleMap: Map<String, Provider<Vertic
         return verticle
     }
 
-    private fun sanitizeClassName(verticleName: String): String = verticleName.substring(verticleName.lastIndexOf(":") + 1)
+    private fun sanitizeClassName(verticleName: String): Class<*> {
+        return Class.forName(verticleName.substring(verticleName.lastIndexOf(":") + 1))
+    }
 
     override fun prefix(): String = "dagger"
 }

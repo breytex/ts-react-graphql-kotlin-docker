@@ -28,7 +28,7 @@ class Application @Inject constructor(private val vertx: Vertx, @Named("config")
             Configurator.setLevel("eu.darken.backend", Level.WARN)
         }
 
-        vertx.deployVerticle("dagger:${HttpVerticle::class.java.name}", DeploymentOptions().apply {
+        vertx.deployVerticle("dagger:${HttpVerticle::class.qualifiedName}", DeploymentOptions().apply {
             this.config = this@Application.config
         })
     }

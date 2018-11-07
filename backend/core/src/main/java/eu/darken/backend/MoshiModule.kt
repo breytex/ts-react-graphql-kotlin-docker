@@ -11,8 +11,8 @@ import javax.inject.Singleton
 
 
 @Module
-class AppModule {
-    private val log = logger(AppModule::class)
+class MoshiModule {
+    private val log = logger(MoshiModule::class)
 
     init {
         log.info("Init done")

@@ -2,8 +2,8 @@ package eu.darken.backend.webserver
 
 import dagger.Module
 import dagger.Provides
+import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
-import dagger.multibindings.StringKey
 import io.vertx.core.Verticle
 
 @Module
@@ -11,6 +11,6 @@ class HttpVerticleModule {
 
     @Provides
     @IntoMap
-    @StringKey("eu.darken.backend.webserver.HttpVerticle")
+    @ClassKey(HttpVerticle::class)
     fun provideHttpVerticle(httpController: HttpController): Verticle = HttpVerticle(httpController)
 }

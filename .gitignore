@@ -7,3 +7,4 @@ data/log/nginx_error.log
 data/mongo
 !data/mongo/.gitkeep
 .gradle/
+.idea

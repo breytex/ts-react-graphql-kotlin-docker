@@ -5,43 +5,16 @@ import dagger.Provides
 import eu.darken.backend.common.exts.logger
 import io.vertx.config.ConfigStoreOptions
 import io.vertx.core.json.JsonObject
-import io.vertx.core.spi.VerticleFactory
 import io.vertx.kotlin.config.ConfigRetrieverOptions
 import io.vertx.reactivex.config.ConfigRetriever
 import io.vertx.reactivex.core.Vertx
-import io.vertx.reactivex.ext.web.Router
 import javax.inject.Named
 import javax.inject.Singleton
 
 
 @Module
-class VertxModule {
-    private val log = logger(VertxModule::class)
-
-    @Provides
-    @Singleton
-    fun provideVertx(verticleFactory: VerticleFactory): Vertx {
-        val vertx = Vertx.vertx()
-        vertx.delegate.registerVerticleFactory(verticleFactory)
-        vertx.exceptionHandler { log.error(it) }
-        return vertx
-    }
-
-    @Provides
-    @Singleton
-    fun provideRxVertx(vertx: Vertx): io.vertx.core.Vertx {
-        return vertx.delegate
-    }
-
-    @Provides
-    fun provideRxRouter(vertx: Vertx): Router {
-        return Router.router(vertx)
-    }
-
-    @Provides
-    fun provideRouter(router: Router): io.vertx.ext.web.Router {
-        return router.delegate
-    }
+class ConfigModule {
+    private val log = logger(ConfigModule::class)
 
     @Provides
     @Singleton

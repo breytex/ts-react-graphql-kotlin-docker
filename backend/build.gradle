@@ -1,84 +1,47 @@
+apply plugin: 'idea'
+
+idea {
+    project {
+        languageLevel = '1.8'
+    }
+}
+
 buildscript {
     ext {
-        kotlin_version = '1.2.71'
-        vertx_version = '3.5.4'
-        daggerVersion = '2.16'
-        moshi_version = '1.7.0'
+        versions = [
+                kotlin: '1.2.71',
+                vertx : '3.5.4',
+                dagger: '2.16',
+                moshi : '1.7.0'
+        ]
     }
-
     repositories {
         jcenter()
-        maven {
-            url "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
         mavenCentral()
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+    }
+}
+
+allprojects {
+    apply plugin: "org.jetbrains.kotlin.jvm"
+    apply plugin: "org.jetbrains.kotlin.kapt"
+
+    repositories {
+        jcenter()
+        mavenCentral()
     }
 
-
-}
-plugins {
-    id 'java'
-    id 'io.vertx.vertx-plugin' version '0.1.0'
-    id "org.jetbrains.kotlin.jvm" version '1.2.71'
-    id "org.jetbrains.kotlin.kapt" version '1.2.71'
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-repositories {
-    jcenter()
-    mavenCentral()
-}
-
-dependencies {
-    compile "io.vertx:vertx-lang-kotlin:$vertx_version"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-runtime:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    compile "io.vertx:vertx-lang-kotlin-coroutines:$vertx_version"
-
-    compile 'com.expedia.www:graphql-kotlin:0.0.21'
-    compile 'com.graphql-java:graphql-java:2018-11-03T12-19-57-9a2d4e9'
-
-    compile "io.vertx:vertx-core:$vertx_version"
-    compile "io.vertx:vertx-web:$vertx_version"
-    compile "io.vertx:vertx-web-client:$vertx_version"
-    compile "io.vertx:vertx-rx-java2:$vertx_version"
-    compile "io.vertx:vertx-unit:$vertx_version"
-    compile "io.vertx:vertx-config:$vertx_version"
-    compile "io.vertx:vertx-service-factory:$vertx_version"
-    compile "io.vertx:vertx-service-proxy:$vertx_version"
-    compile "io.vertx:vertx-codegen:$vertx_version"
-    compile "io.vertx:vertx-mongo-client:$vertx_version"
-    compile 'junit:junit:4.12'
-
-    compile "com.google.dagger:dagger:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
-
-    implementation "com.squareup.moshi:moshi:$moshi_version"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
-    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
-
-    compile 'com.lmax:disruptor:3.3.5'
-    compile 'org.apache.logging.log4j:log4j-core:2.7'
-    compile 'org.apache.logging.log4j:log4j-jcl:2.7'
-    compile 'org.apache.logging.log4j:log4j-jul:2.7'
-    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.7'
-}
-
-vertx {
-    launcher = 'eu.darken.backend.Application'
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {   (3)
-    kotlinOptions {
-        jvmTarget = "1.8"
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+    compileTestKotlin {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
     }
 }

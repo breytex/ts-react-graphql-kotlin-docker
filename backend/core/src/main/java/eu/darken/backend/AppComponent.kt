@@ -11,10 +11,11 @@ import javax.inject.Singleton
     VertxModule::class,
     MongoModule::class,
     DaggerVerticleFactoryModule::class,
-    AppModule::class,
+    MoshiModule::class,
     HttpVerticleModule::class,
     GraphQLModule::class,
-    SchemaModule::class
+    SchemaModule::class,
+    ConfigModule::class
 ])
 interface AppComponent {
     fun application(): Application

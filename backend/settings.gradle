@@ -1,3 +1,6 @@
 if (!JavaVersion.current().java8Compatible) {
     throw new IllegalStateException("Java 8 required!")
 }
+
+include "core"
+include "seeder"
