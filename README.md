@@ -1,5 +1,7 @@
 # react-yoga-mongo-nginx-docker 
 
+![](https://img.shields.io/badge/Approved-Value--Deal-brightgreen.svg)
+
 ## Hello
 
 This is a sample dev stack for getting into React + GraphQL with a Kotlin backend. It demos:
