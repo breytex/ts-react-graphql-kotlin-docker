@@ -25,7 +25,7 @@ services:
     build:
       context: .
       dockerfile: docker/DockerfileBackend
-    command: ./gradlew runSeeder vertxRun
+    command: ./gradlew vertxRun
     #command: ./gradlew vertxDebug # development
     environment:
      - VERTX_DEBUG=true

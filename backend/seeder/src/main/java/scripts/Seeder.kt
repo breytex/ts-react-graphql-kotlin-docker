@@ -13,20 +13,18 @@ class Seeder @Inject constructor(private val helloRepo: HelloRepo) {
     private val log = logger(this::class)
 
     fun launch() {
-        if (!helloRepo.getAllHellos().blockingGet().isEmpty()) {
-            log.info("Seeding not necessary")
-        } else {
-            Single
-                    .create<Hello> {
-                        val hello = Hello("Name-${UUID.randomUUID().toString().substring(0, 10)}", UUID.randomUUID())
-                        hello.helloDetails = HelloDetails(hello.helloId)
-                        it.onSuccess(hello)
-                    }
-                    .flatMapCompletable { helloRepo.save(it) }
-                    .repeat(1000)
-                    .doFinally { log.info("Seeding done") }
-                    .blockingAwait()
-        }
+        log.info("Seeding data...")
+        Single
+                .create<Hello> {
+                    val hello = Hello("Name-${UUID.randomUUID().toString().substring(0, 10)}", UUID.randomUUID())
+                    hello.helloDetails = HelloDetails(hello.helloId)
+                    it.onSuccess(hello)
+                }
+                .flatMapCompletable { helloRepo.save(it) }
+                .repeat(1000)
+                .doFinally { log.info("...seeding done") }
+                .blockingAwait()
+
         System.exit(0)
     }
 

@@ -20,7 +20,7 @@ You can start building your first react-graphql-app in <5min.
 Run in your cli:
 
 ```bash
-$ cd ts-react-graphql-kotlin-docker
+$ cd <dir>
 
 # downloads docker images and installs npm packages inside all containers
 $ docker-compose build
@@ -33,11 +33,10 @@ $ npm install
 $ cd ../backend
 $ ./gradlew clean assemble
 
-# seed testdata into mongodb
-# fails sometimes (couldnt connect to mongo). Just retry
-$ docker-compose run --rm backend //TODO
+# If you want some test data
+$ docker-compose run --rm backend ./gradlew runSeeder
 
-# almost done
+# Run it ᕕ( ᐛ )ᕗ
 $ cd ../
 $ docker-compose up
 ```
