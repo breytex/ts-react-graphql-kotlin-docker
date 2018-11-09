@@ -7,9 +7,9 @@ import dagger.Provides
 import eu.darken.backend.MoshiModule
 import eu.darken.backend.common.exts.logger
 import eu.darken.backend.common.exts.toTopLevelObjectDefs
+import eu.darken.backend.common.graphql.GraphQLMutation
+import eu.darken.backend.common.graphql.GraphQLQuery
 import eu.darken.backend.webserver.graphql.extensions.CustomSchemaGeneratorHooks
-import eu.darken.backend.webserver.graphql.schemas.GraphQLMutation
-import eu.darken.backend.webserver.graphql.schemas.GraphQLQuery
 import graphql.GraphQL
 import graphql.schema.GraphQLSchema
 import graphql.schema.idl.SchemaPrinter

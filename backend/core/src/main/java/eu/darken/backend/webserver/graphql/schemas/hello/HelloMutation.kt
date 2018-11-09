@@ -1,7 +1,7 @@
 package eu.darken.backend.webserver.graphql.schemas.hello
 
 import com.expedia.graphql.annotations.GraphQLDescription
-import eu.darken.backend.webserver.graphql.schemas.GraphQLMutation
+import eu.darken.backend.common.graphql.GraphQLMutation
 import java.util.*
 import javax.inject.Inject
 

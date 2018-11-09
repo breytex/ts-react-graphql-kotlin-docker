@@ -1,4 +1,4 @@
-package scripts
+package scripts.seeder
 
 import eu.darken.backend.common.exts.logger
 import eu.darken.backend.webserver.graphql.schemas.hello.Hello

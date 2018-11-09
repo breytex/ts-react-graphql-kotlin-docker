@@ -11,9 +11,7 @@ class CustomDataFetcherFactory @Inject constructor(fetchers: Map<Class<*>, @JvmS
     private val fetchersByName = mutableMapOf<String, DataFetcher<Any>>()
 
     init {
-        fetchers.forEach {
-            fetchersByName[it.key.simpleName] = it.value
-        }
+        fetchers.forEach { fetchersByName[it.key.simpleName] = it.value }
     }
 
     val log = logger(this::class)

@@ -5,6 +5,8 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
 import eu.darken.backend.common.graphql.FieldKey
+import eu.darken.backend.common.graphql.GraphQLMutation
+import eu.darken.backend.common.graphql.GraphQLQuery
 import eu.darken.backend.webserver.graphql.schemas.hello.*
 import graphql.schema.DataFetcher
 import org.dataloader.BatchLoader

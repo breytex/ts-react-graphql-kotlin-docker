@@ -3,4 +3,4 @@ if (!JavaVersion.current().java8Compatible) {
 }
 
 include "core"
-include "seeder"
+include "tools"

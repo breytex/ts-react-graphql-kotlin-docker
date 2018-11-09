@@ -2,7 +2,7 @@ package eu.darken.backend.webserver.graphql.schemas.hello
 
 import com.expedia.graphql.annotations.GraphQLDescription
 import eu.darken.backend.common.exts.logger
-import eu.darken.backend.webserver.graphql.schemas.GraphQLQuery
+import eu.darken.backend.common.graphql.GraphQLQuery
 import javax.inject.Inject
 
 @Suppress("unused")

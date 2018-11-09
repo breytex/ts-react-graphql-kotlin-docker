@@ -24,6 +24,6 @@ dependencies {
 }
 
 task runSeeder(type: JavaExec) {
-    main = 'scripts.Seeder'
+    main = 'scripts.seeder.Seeder'
     classpath = sourceSets.main.runtimeClasspath
 }

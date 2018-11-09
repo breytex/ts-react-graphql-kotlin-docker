@@ -1,4 +1,4 @@
-package scripts
+package scripts.seeder
 
 import dagger.BindsInstance
 import dagger.Component
