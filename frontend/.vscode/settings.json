@@ -1,0 +1,12 @@
+{
+  "editor.detectIndentation": false,
+  "eslint.autoFixOnSave": true,
+  "tslint.autoFixOnSave": true,
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true,
+  "editor.tabSize": 2,
+  "html.format.maxPreserveNewLines": 1,
+  "files.trimFinalNewlines": true,
+  "editor.suggest.localityBonus": true,
+  "editor.suggestSelection": "recentlyUsedByPrefix",
+}

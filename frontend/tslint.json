@@ -6,5 +6,10 @@
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js"
     ]
+  },
+  "rules": {
+    "no-empty-interface": false,
+    "import-sources-order": "any",
+    "no-console": false
   }
 }
