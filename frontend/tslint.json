@@ -8,6 +8,7 @@
     ]
   },
   "rules": {
+    "semicolon": [true, "never"],
     "no-empty-interface": false,
     "import-sources-order": "any",
     "no-console": false
