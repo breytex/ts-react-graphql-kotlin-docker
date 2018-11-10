@@ -2,10 +2,10 @@ package scripts.seeder
 
 import dagger.BindsInstance
 import dagger.Component
-import eu.darken.backend.ConfigModule
-import eu.darken.backend.MongoModule
-import eu.darken.backend.MoshiModule
 import io.vertx.reactivex.core.Vertx
+import stack.saas.backend.ConfigModule
+import stack.saas.backend.MongoModule
+import stack.saas.backend.MoshiModule
 import javax.inject.Singleton
 
 

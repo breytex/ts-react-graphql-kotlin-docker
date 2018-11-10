@@ -43,5 +43,5 @@ dependencies {
 }
 
 vertx {
-    launcher = 'eu.darken.backend.Application'
+    launcher = 'stack.saas.backend.Application'
 }
