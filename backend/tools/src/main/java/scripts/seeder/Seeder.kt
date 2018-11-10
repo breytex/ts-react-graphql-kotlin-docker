@@ -1,11 +1,11 @@
 package scripts.seeder
 
-import eu.darken.backend.common.exts.logger
-import eu.darken.backend.webserver.graphql.schemas.hello.Hello
-import eu.darken.backend.webserver.graphql.schemas.hello.HelloDetails
-import eu.darken.backend.webserver.graphql.schemas.hello.HelloRepo
 import io.reactivex.Single
 import io.vertx.reactivex.core.Vertx
+import stack.saas.backend.common.logger
+import stack.saas.backend.webserver.graphql.components.hello.HelloRepo
+import stack.saas.backend.webserver.graphql.components.hello.schema.Hello
+import stack.saas.backend.webserver.graphql.components.hello.schema.HelloDetails
 import java.util.*
 import javax.inject.Inject
 
