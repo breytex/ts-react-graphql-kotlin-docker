@@ -26,17 +26,27 @@ class GraphQLController @Inject constructor(
     router.route().handler(BodyHandler.create())
     router.route().handler { event ->
         val start = System.currentTimeMillis()
-
         vertx
                 .rxExecuteBlocking<ExecutionResult>({
+                    val query = event.bodyAsJson
+                    log.debug("Processing query: $query")
+
                     val cmd = newExecutionInput()
-                            .query(event.bodyAsJson.map["query"] as String)
+                            .query(query.map["query"] as? String)
+                            .operationName(query.map["operationName"] as? String)
+                            .variables(query.map["variables"] as? Map<String, Any>)
                             .dataLoaderRegistry(dataLoaderRegistry.get())
+
                     val result = graphQL.execute(cmd)
                     it.complete(result)
                 }, false)
                 .map { it.toSpecification() }
                 .doOnSuccess { log.info("##### GraphQuery finished in  ${System.currentTimeMillis() - start}ms") }
-                .subscribe({ event.json(it) }, { event.fail(500) })
+                .subscribe({
+                    event.json(it)
+                }, {
+                    log.warn("GraphQL query failed.", it)
+                    event.fail(500)
+                })
     }
 })
