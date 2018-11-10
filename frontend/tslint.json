@@ -7,6 +7,7 @@
       "coverage/lcov-report/*.js"
     ]
   },
+  "defaultSeverity": "warning",
   "rules": {
     "semicolon": [true, "never"],
     "no-empty-interface": false,
