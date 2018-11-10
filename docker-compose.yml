@@ -12,8 +12,8 @@ services:
       - NODE_ENV=development
     volumes:
       - ./frontend:/src
-      # Don't overwrite node_modules from the build step
-      - /src/node_modules
+      # Mount named volume to seperate locale and container node_modules
+      - frontendmodules:/src/node_modules
     ports:
       - "3000:3000"
     links:
@@ -77,3 +77,6 @@ services:
       MONGODB_DATABASE: graphqldb
     volumes:
       - './data/mongo:/data/db'
+
+volumes:
+  frontendmodules:
