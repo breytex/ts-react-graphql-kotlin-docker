@@ -5,6 +5,8 @@ import com.expedia.graphql.toSchema
 import dagger.Module
 import dagger.Provides
 import graphql.GraphQL
+import graphql.execution.AsyncExecutionStrategy
+import graphql.execution.AsyncSerialExecutionStrategy
 import graphql.schema.GraphQLSchema
 import graphql.schema.idl.SchemaPrinter
 import org.dataloader.BatchLoader
@@ -43,9 +45,11 @@ class GraphQLModule {
 
     @Provides
     @Singleton
-    fun provideGraphQL(schema: GraphQLSchema): GraphQL {
+    fun provideGraphQL(schema: GraphQLSchema, exceptionHandler: CustomDataFetcherExceptionHandler): GraphQL {
         return GraphQL
                 .newGraphQL(schema)
+                .queryExecutionStrategy(AsyncExecutionStrategy(exceptionHandler))
+                .mutationExecutionStrategy(AsyncSerialExecutionStrategy(exceptionHandler))
                 .build()
     }
 
