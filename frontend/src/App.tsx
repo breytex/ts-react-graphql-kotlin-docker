@@ -1,7 +1,8 @@
-import * as React from 'react';
-import './App.css';
-
-import logo from './logo.svg';
+import * as React from 'react'
+import './App.css'
+import AddHello from './components/AddHello'
+import ShowHellos from './components/ShowHellos'
+import logo from './logo.svg'
 
 class App extends React.Component {
   public render() {
@@ -11,12 +12,13 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <h1>Add hellos</h1>
+        <AddHello />
+        <h1>List of all hellos</h1>
+        <ShowHellos />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
