@@ -12,6 +12,7 @@ fun <T> JsonAdapter<T>.toJsonObject(obj: T): JsonObject {
     return JsonObject(this.toJsonMap(obj))
 }
 
+@Suppress("UNCHECKED_CAST")
 fun <T> JsonAdapter<T>.fromJsonObject(json: JsonObject): T {
-    return this.fromJsonValue(json) as T
+    return this.fromJson(json.encode()) as T
 }
