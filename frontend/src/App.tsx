@@ -12,12 +12,10 @@ class App extends React.Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          <h1>Add hellos</h1>
-          <AddHello />
-          <h1>List of all hellos</h1>
-          <ShowHellos />
-        </p>
+        <h1>Add hellos</h1>
+        <AddHello />
+        <h1>List of all hellos</h1>
+        <ShowHellos />
       </div>
     )
   }

@@ -2,14 +2,22 @@ import gql from "graphql-tag"
 import * as React from 'react'
 import { Query } from "react-apollo"
 
-export interface IAppProps {
+export interface IShowHellosProps {
 }
 
-export interface IAppState {
+export interface IShowHellosState {
 }
 
-export default class IApp extends React.Component<IAppProps, IAppState> {
-  constructor(props: IAppProps) {
+const QUERY_HELLOS = gql`
+query{
+    allHellos{
+        name
+    }
+}
+`
+
+export default class ShowHellos extends React.Component<IShowHellosProps, IShowHellosState> {
+  constructor(props: IShowHellosProps) {
     super(props)
 
     this.state = {
@@ -19,20 +27,14 @@ export default class IApp extends React.Component<IAppProps, IAppState> {
   public render() {
     return (
       <Query
-        query={gql`
-                    query{
-                        allHellos{
-                            name
-                        }
-                    }
-                `}
+        query={QUERY_HELLOS}
       >
         {({ loading, error, data }) => {
           if (loading) { return <p>Loading...</p> }
           if (error) { return <p>Error :(</p> }
 
-          return data.allHellos.map(({ helloId, name }: { helloId: number, name: string }, index: number) => (
-            <div key={helloId}>
+          return data.allHellos.map(({ name }: { name: string }, index: number) => (
+            <div key={index}>
               <b>{index + 1}:</b> {name}
             </div>
           ))
