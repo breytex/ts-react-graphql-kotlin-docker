@@ -20,7 +20,7 @@ class ConfigModule {
     @Singleton
     @Named("config")
     fun environmentConfig(vertx: Vertx): JsonObject {
-        val envStore = ConfigStoreOptions().setType("env").setConfig(JsonObject().put("raw-data", true))
+        val envStore = ConfigStoreOptions().setType("env")
         val options = ConfigRetrieverOptions().addStore(envStore)
         val retriever = ConfigRetriever.create(vertx, options)
         return retriever.rxGetConfig()

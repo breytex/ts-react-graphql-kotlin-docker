@@ -16,7 +16,7 @@ import javax.inject.Named
 class Application @Inject constructor(private val vertx: Vertx, @Named("config") private val config: JsonObject) {
     val log = logger(Application::class)
     fun launch() {
-        Application.isDebug = config.getString("VERTX_DEBUG", "true")!!.toBoolean()
+        Application.isDebug = config.getBoolean("VERTX_DEBUG", true)
 
         log.warn("Debug: ${Application.isDebug}")
 

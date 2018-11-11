@@ -11,3 +11,7 @@ fun <T> JsonAdapter<T>.toJsonMap(obj: T): Map<String, Any> {
 fun <T> JsonAdapter<T>.toJsonObject(obj: T): JsonObject {
     return JsonObject(this.toJsonMap(obj))
 }
+
+fun <T> JsonAdapter<T>.fromJsonObject(json: JsonObject): T {
+    return this.fromJsonValue(json) as T
+}

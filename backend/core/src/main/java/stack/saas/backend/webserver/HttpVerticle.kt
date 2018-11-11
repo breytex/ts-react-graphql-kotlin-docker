@@ -13,8 +13,8 @@ class HttpVerticle constructor(val httpController: HttpController) : AbstractVer
 
     override fun start() {
         val config = config()
-        val nonSSLPort: Int = config.getString("HTTP_PORT", "4000").toInt()
-        val portSSL: Int = config.getString("HTTPS_PORT", "4022").toInt()
+        val nonSSLPort: Int = config.getInteger("HTTP_PORT", 4000)
+        val portSSL: Int = config.getInteger("HTTPS_PORT", 4022)
         val privKey = File(config.getString("HTTPS_KEY", "~"))
         val pubKey = File(config.getString("HTTPS_PORT", "~"))
 

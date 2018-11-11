@@ -30,7 +30,7 @@ class GraphQLModule {
                       mutations: Set<@JvmSuppressWildcards GraphQLMutation>,
                       dataFetcherFactory: CustomDataFetcherFactory): GraphQLSchema {
         val schemaConfig = SchemaGeneratorConfig(
-                supportedPackages = listOf("stack.saas.backend.webserver.graphql"),
+                supportedPackages = listOf("stack.saas.backend.webserver.graphql.components"),
                 hooks = customGens,
                 dataFetcherFactory = dataFetcherFactory
         )
