@@ -43,6 +43,25 @@ $ docker-compose up
 
 Open [localhost](http://localhost) in your browser :)
 
+## Development
+### Frontend
+**Add new npm packages**
+```
+# install new package in docker container
+docker-compose run --rm frontend npm install package-name --save
+# also install the same package locally for autocompletion (packages to install are automatically detected in shared package.json)
+cd frontend && npm install
+```
+**Update packages in docker container**
+
+When the frontend dependencies change, you have to update the node_modules on your locale filesystem as well as in the docker container.
+```
+# install new packages in the docker container
+docker-compose run --rm frontend npm install
+# install new packages locally for autocompletion
+cd frontend && npm install
+```
+
 ## Random tips
 
 * use the mongod cli or a gui (like `brew cask install robo-3t`) to dive into the database
