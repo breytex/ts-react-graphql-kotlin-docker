@@ -1,7 +1,11 @@
-package stack.saas.backend.webserver.graphql.extensions
+package stack.saas.backend.webserver.graphql
 
 import com.expedia.graphql.schema.hooks.NoopSchemaGeneratorHooks
 import graphql.schema.GraphQLType
+import org.bson.types.ObjectId
+import stack.saas.backend.common.graphql.coercing.InstantCoercing
+import stack.saas.backend.common.graphql.coercing.ObjectIdCoercing
+import stack.saas.backend.common.graphql.coercing.UUIDCoercing
 import java.time.Instant
 import java.util.*
 import javax.inject.Inject
@@ -14,6 +18,7 @@ class CustomSchemaGeneratorHooks @Inject constructor() : NoopSchemaGeneratorHook
         return when (type.classifier as? KClass<*>) {
             Instant::class -> InstantCoercing.type
             UUID::class -> UUIDCoercing.type
+            ObjectId::class -> ObjectIdCoercing.type
             else -> null
         }
     }

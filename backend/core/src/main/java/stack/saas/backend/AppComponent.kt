@@ -11,7 +11,6 @@ import javax.inject.Singleton
     VertxModule::class,
     MongoModule::class,
     DaggerVerticleFactoryModule::class,
-    MoshiModule::class,
     HttpVerticleModule::class,
     GraphQLModule::class,
     ComponentModule::class,

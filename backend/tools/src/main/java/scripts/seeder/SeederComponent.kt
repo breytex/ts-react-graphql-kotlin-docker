@@ -5,15 +5,13 @@ import dagger.Component
 import io.vertx.reactivex.core.Vertx
 import stack.saas.backend.ConfigModule
 import stack.saas.backend.MongoModule
-import stack.saas.backend.MoshiModule
 import javax.inject.Singleton
 
 
 @Singleton
 @Component(modules = [
     ConfigModule::class,
-    MongoModule::class,
-    MoshiModule::class
+    MongoModule::class
 ])
 interface SeederComponent {
     fun seeder(): Seeder

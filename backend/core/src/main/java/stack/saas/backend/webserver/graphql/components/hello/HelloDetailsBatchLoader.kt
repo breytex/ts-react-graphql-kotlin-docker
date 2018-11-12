@@ -1,5 +1,6 @@
 package stack.saas.backend.webserver.graphql.components.hello
 
+import org.bson.types.ObjectId
 import org.dataloader.BatchLoader
 import stack.saas.backend.common.logger
 import stack.saas.backend.webserver.graphql.components.hello.schema.HelloDetails
@@ -7,19 +8,19 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CompletionStage
 import javax.inject.Inject
 
-class HelloDetailsBatchLoader @Inject constructor(private val helloRepo: HelloRepo) : BatchLoader<String, HelloDetails> {
+class HelloDetailsBatchLoader @Inject constructor(private val helloRepo: HelloRepo) : BatchLoader<ObjectId, HelloDetails> {
     val log = logger(this::class)
 
-    override fun load(keys: MutableList<String>): CompletionStage<MutableList<HelloDetails?>> {
+    override fun load(keys: MutableList<ObjectId>): CompletionStage<MutableList<HelloDetails?>> {
         val start = System.currentTimeMillis()
         val future = CompletableFuture<MutableList<HelloDetails?>>()
 
-        val helloMap = mutableMapOf<String, HelloDetails>()
+        val helloMap = mutableMapOf<ObjectId, HelloDetails>()
         helloRepo.getAllDetails(keys)
                 .doOnSuccess { log.info("##### Got ${it.size} HelloDetails in ${System.currentTimeMillis() - start}ms") }
                 .flattenAsObservable { it }
                 .map {
-                    helloMap[it.helloId.toString()] = it
+                    helloMap[it.helloId] = it
                     return@map it
                 }
                 .toList()

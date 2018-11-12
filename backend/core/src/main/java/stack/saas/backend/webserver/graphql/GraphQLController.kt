@@ -31,6 +31,7 @@ class GraphQLController @Inject constructor(
                     val query = event.bodyAsJson
                     log.debug("Processing query: $query")
 
+                    @Suppress("UNCHECKED_CAST")
                     val cmd = newExecutionInput()
                             .query(query.map["query"] as? String)
                             .operationName(query.map["operationName"] as? String)

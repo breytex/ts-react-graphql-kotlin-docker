@@ -2,6 +2,7 @@ package stack.saas.backend.webserver.graphql.components.hello
 
 import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
+import org.bson.types.ObjectId
 import stack.saas.backend.webserver.graphql.components.hello.schema.Hello
 import stack.saas.backend.webserver.graphql.components.hello.schema.HelloDetails
 import javax.inject.Inject
@@ -10,7 +11,7 @@ import javax.inject.Inject
 class HelloDetailsDataFetcher @Inject constructor() : DataFetcher<Any> {
     override fun get(environment: DataFetchingEnvironment?): Any {
         val parent = environment?.getSource<Hello>()
-        val loader = environment?.getDataLoader<String, HelloDetails>(HelloDetails::class.simpleName)
-        return loader!!.load(parent?.helloId.toString())
+        val loader = environment?.getDataLoader<ObjectId, HelloDetails>(HelloDetails::class.simpleName)
+        return loader!!.load(parent?.helloId)
     }
 }

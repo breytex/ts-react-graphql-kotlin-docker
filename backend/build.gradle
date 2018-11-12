@@ -12,7 +12,7 @@ buildscript {
                 kotlin: '1.2.71',
                 vertx : '3.5.4',
                 dagger: '2.16',
-                moshi : '1.7.0'
+                jackson : '2.9.7'
         ]
     }
     repositories {

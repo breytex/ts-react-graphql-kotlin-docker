@@ -30,9 +30,8 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$versions.dagger"
     kaptTest "com.google.dagger:dagger-compiler:$versions.dagger"
 
-    implementation "com.squareup.moshi:moshi:$versions.moshi"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshi"
-    implementation "com.squareup.moshi:moshi-kotlin:$versions.moshi"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$versions.jackson"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:$versions.jackson"
 
     compile 'com.lmax:disruptor:3.3.5'
     compile 'org.apache.logging.log4j:log4j-core:2.7'

@@ -1,4 +1,4 @@
-package stack.saas.backend.webserver.graphql.extensions
+package stack.saas.backend.common.graphql.coercing
 
 import graphql.schema.*
 import java.time.Instant

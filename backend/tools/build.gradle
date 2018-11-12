@@ -18,9 +18,8 @@ dependencies {
     kaptTest "com.google.dagger:dagger-compiler:$versions.dagger"
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
-    implementation "com.squareup.moshi:moshi:$versions.moshi"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshi"
-    implementation "com.squareup.moshi:moshi-kotlin:$versions.moshi"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$versions.jackson"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:$versions.jackson"
 }
 
 task runSeeder(type: JavaExec) {

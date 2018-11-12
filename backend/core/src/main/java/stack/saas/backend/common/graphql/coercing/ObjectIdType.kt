@@ -1,23 +1,22 @@
-package stack.saas.backend.webserver.graphql.extensions
+package stack.saas.backend.common.graphql.coercing
 
 import graphql.schema.*
-import java.util.*
+import org.bson.types.ObjectId
 
 
-class UUIDCoercing : Coercing<UUID, String> {
+class ObjectIdCoercing : Coercing<ObjectId, String> {
     companion object {
         val type = GraphQLScalarType("UUID", "A formatted java.util.UUID", UUIDCoercing())
     }
 
-    override fun parseValue(input: Any?): UUID = try {
-        UUID.fromString(serialize(input))
+    override fun parseValue(input: Any?): ObjectId = try {
+        ObjectId(serialize(input))
     } catch (e: Exception) {
         throw CoercingParseValueException(e)
     }
 
-    override fun parseLiteral(input: Any?): UUID? = try {
-        val isoString = (input as? UUID)?.toString()
-        UUID.fromString(isoString)
+    override fun parseLiteral(input: Any?): ObjectId? = try {
+        ObjectId((input as? ObjectId)?.toHexString())
     } catch (e: Exception) {
         throw CoercingParseLiteralException(e)
     }

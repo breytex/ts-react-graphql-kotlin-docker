@@ -16,7 +16,7 @@ class Seeder @Inject constructor(private val helloRepo: HelloRepo) {
         log.info("Seeding data...")
         Single
                 .create<Hello> {
-                    val hello = Hello("Name-${UUID.randomUUID().toString().substring(0, 10)}", UUID.randomUUID())
+                    val hello = Hello("Name-${UUID.randomUUID().toString().substring(0, 10)}")
                     hello.helloDetails = HelloDetails(hello.helloId)
                     it.onSuccess(hello)
                 }

@@ -12,18 +12,16 @@ import graphql.schema.idl.SchemaPrinter
 import org.dataloader.BatchLoader
 import org.dataloader.DataLoader
 import org.dataloader.DataLoaderRegistry
-import stack.saas.backend.MoshiModule
 import stack.saas.backend.common.graphql.GraphQLMutation
 import stack.saas.backend.common.graphql.GraphQLQuery
 import stack.saas.backend.common.graphql.toTopLevelObjectDefs
 import stack.saas.backend.common.logger
-import stack.saas.backend.webserver.graphql.extensions.CustomSchemaGeneratorHooks
 import javax.inject.Singleton
 
 
 @Module
 class GraphQLModule {
-    private val log = logger(MoshiModule::class)
+    private val log = logger(this::class)
 
     @Provides
     @Singleton
