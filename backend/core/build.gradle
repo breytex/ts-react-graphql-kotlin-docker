@@ -5,10 +5,11 @@ plugins {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
-    compile "org.jetbrains.kotlin:kotlin-runtime:$versions.kotlin"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
     compile "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
 
-    compile 'com.expedia.www:graphql-kotlin:0.0.21'
+    compile 'com.expedia.www:graphql-kotlin:0.0.24'
+
     compile 'com.graphql-java:graphql-java:2018-11-03T12-19-57-9a2d4e9'
 
     compile "io.vertx:vertx-lang-kotlin:$versions.vertx"

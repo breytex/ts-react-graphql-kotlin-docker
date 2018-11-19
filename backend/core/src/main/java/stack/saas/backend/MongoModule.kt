@@ -1,5 +1,6 @@
 package stack.saas.backend
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import dagger.Module
@@ -25,6 +26,7 @@ class MongoModule {
                 registerModule(Jdk8Module())
                 registerModule(IsoDateJacksonModule())
                 registerModule(ObjectIdJacksonModule())
+                setSerializationInclusion(JsonInclude.Include.NON_NULL)
             }
         }
         log.info("Init done")
@@ -34,10 +36,10 @@ class MongoModule {
     @Singleton
     fun provideMongoClient(vertx: Vertx, @Named("config") config: JsonObject): MongoClient {
         val mongoconfig = JsonObject(mapOf(
-                "connection_string" to config.getString("MONGO_URI"),
-                "db_name" to config.getString("MONGO_DATABASE"),
-                "username" to config.getString("MONGO_USERNAME"),
-                "password" to config.getString("MONGO_PASSWORD")
+            "connection_string" to config.getString("MONGO_URI", "mongodb://localhost:27017"),
+            "db_name" to config.getString("MONGO_DATABASE", "graphqldb"),
+            "username" to config.getString("MONGO_USERNAME", "graphql"),
+            "password" to config.getString("MONGO_PASSWORD", "yoga123")
         ))
         val mongoClient = MongoClient.createShared(vertx, mongoconfig)
 

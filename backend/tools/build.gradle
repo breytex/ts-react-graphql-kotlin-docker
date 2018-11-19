@@ -2,8 +2,7 @@ dependencies {
     compile project(':core')
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
-    compile "org.jetbrains.kotlin:kotlin-runtime:$versions.kotlin"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
     compile "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
 
     compile "io.vertx:vertx-lang-kotlin:$versions.vertx"

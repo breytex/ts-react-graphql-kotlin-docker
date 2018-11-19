@@ -27,7 +27,7 @@ class GraphQLController @Inject constructor(
     router.route().handler { event ->
         val start = System.currentTimeMillis()
         vertx
-                .rxExecuteBlocking<ExecutionResult>({
+            .rxExecuteBlocking<ExecutionResult> {
                     val query = event.bodyAsJson
                     log.debug("Processing query: $query")
 
@@ -40,12 +40,13 @@ class GraphQLController @Inject constructor(
 
                     val result = graphQL.execute(cmd)
                     it.complete(result)
-                }, false)
-                .map { it.toSpecification() }
+            }
                 .doOnSuccess { log.info("##### GraphQuery finished in  ${System.currentTimeMillis() - start}ms") }
                 .subscribe({
                     event.json(it)
                 }, {
+                    var error = it
+                    while (error.cause != null) error = error.cause
                     log.warn("GraphQL query failed.", it)
                     event.fail(500)
                 })

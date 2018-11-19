@@ -3,6 +3,7 @@ package stack.saas.backend
 import dagger.Component
 import stack.saas.backend.webserver.HttpVerticleModule
 import stack.saas.backend.webserver.graphql.GraphQLModule
+import stack.saas.backend.webserver.graphql.WiringModule
 import stack.saas.backend.webserver.graphql.components.ComponentModule
 import javax.inject.Singleton
 
@@ -14,7 +15,8 @@ import javax.inject.Singleton
     HttpVerticleModule::class,
     GraphQLModule::class,
     ComponentModule::class,
-    ConfigModule::class
+    ConfigModule::class,
+    WiringModule::class
 ])
 interface AppComponent {
     fun application(): Application
