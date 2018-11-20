@@ -10,7 +10,11 @@ This is a sample dev stack for getting into React + GraphQL with a Kotlin backen
 * docker (docker-compose)
 * [create-react-app](https://github.com/facebook/create-react-app) with typescript
 * vertx.io with Kotlin & Reactive Extensions
-* graphql with examples showing schemas, queries, mutations, data-fetching, data-loading and batch-loading
+* graphql
+  * queries
+  * mutations
+  * data-fetching (batch-)loading
+  * custom directives (e.g. input validation or authentication)
 * mongoDB
 
 You can start building your first react-graphql-app in <5min.
@@ -75,7 +79,7 @@ docker-compose build --no-cache frontend
 * password: graphqldb
 * localhost:27017
 * can be changed in docker-compose.yml
-* work on the graphQL/mongodb schema at `backend/src/main/java/eu/darken/backend/webserver/graphql/schemas/hello`
+* work on the graphQL/mongodb schema at `backend/src/main/java/stack/saas/backend/webserver/graphql/components/hello/schema`
 
 ## Todos
 
