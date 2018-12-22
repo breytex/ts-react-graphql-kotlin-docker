@@ -68,7 +68,7 @@ services:
       - backend
 
   mongo:
-    image: "bitnami/mongodb:latest"
+    image: "bitnami/mongodb:3.6.8"
     ports:
       - '27017:27017'
     environment:
@@ -76,7 +76,16 @@ services:
       MONGODB_PASSWORD: yoga123
       MONGODB_DATABASE: graphqldb
     volumes:
-      - './data/mongo:/data/db'
+      - ./data/db:/bitnami
+    depends_on:
+      - fix-mongo-permissions
+
+  fix-mongo-permissions:
+    image: 'busybox'
+    user: root
+    command: chown -R 1001:1001 /bitnami
+    volumes:
+      - ./data/db:/bitnami
 
 volumes:
   frontendmodules:
